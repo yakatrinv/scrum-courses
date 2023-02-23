@@ -11,8 +11,8 @@ public class DaoImpl<T> implements DAO<T>{
     @Override
     public T save(T object) {
         em.getTransaction().begin();
-       // em.persist(object);
-        object = em.merge(object);
+        em.persist(object);
+       // object = em.merge(object);
         em.getTransaction().commit();
         return object;
     }

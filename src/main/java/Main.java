@@ -19,8 +19,8 @@ public class Main {
         student.setName("Max");
         student.setSurname("Petrukevich");
         Student student1 = new Student();
-        student.setName("Oleg");
-        student.setSurname("Avdeenko");
+        student1.setName("Oleg");
+        student1.setSurname("Avdeenko");
 
         Teacher teacher = new Teacher();
         teacher.setName("Gennadi");
@@ -38,8 +38,8 @@ public class Main {
         review.setReview("Well done");
 
         daoUser.save(user);
-        daoStudent.save(student);
         daoStudent.save(student1);
+        daoStudent.save(student);
         daoTeacher.save(teacher);
         daoCourse.save(course);
         daoTask.save(task);
