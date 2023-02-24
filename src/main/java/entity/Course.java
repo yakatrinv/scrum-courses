@@ -23,8 +23,7 @@ public class Course {
     @Column
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    @Column
+    @JoinColumn(name = "teacher_id")
     private String teacher;
 
     @ManyToMany(mappedBy = "courses")
