@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Data
@@ -18,7 +20,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "task_id")
     private Integer id;
 
     @Column
@@ -28,6 +30,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer courseId;
+
+    @ManyToMany(mappedBy = "tasks")
+    private Set<Student> students = new HashSet<>();
 
 }
 

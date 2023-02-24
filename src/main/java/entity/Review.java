@@ -17,7 +17,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "review_id")
     private Integer id;
 
     @Column
@@ -30,4 +30,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     public Integer taskId;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private Student student;
 }
