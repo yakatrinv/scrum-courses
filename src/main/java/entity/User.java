@@ -1,11 +1,12 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+
+/**
+ * Entity class extends Data class.
+ */
 
 @Data
 @AllArgsConstructor
@@ -13,12 +14,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+public class User extends DataEntity {
 
     @Column
     private String login;

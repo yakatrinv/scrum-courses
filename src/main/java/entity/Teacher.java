@@ -1,11 +1,15 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+/**
+ * Entity class extends Data class.
+ */
 
 @Data
 @AllArgsConstructor
@@ -13,14 +17,15 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+public class Teacher extends DataEntity {
+
     @Column
     private String name;
+
     @Column
     private String surname;
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private Set<Course> courses = new HashSet<>();
 
 }
