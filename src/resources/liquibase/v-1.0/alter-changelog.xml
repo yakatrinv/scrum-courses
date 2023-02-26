@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?> <!--db.changelog.xml-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Course" author="Artsiom">
+        <sql>ALTER TABLE course
+            ADD FOREIGN KEY Fk90 (teacher_id)
+            REFERENCES teacher(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fk90</sql>
+        </rollback>
+    </changeSet>
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Course_Student/1" author="Artsiom">
+        <sql>ALTER TABLE course_student
+            ADD FOREIGN KEY Fk8s (student_id)
+            REFERENCES student(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fk8s</sql>
+        </rollback>
+    </changeSet>
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Course_Student/2" author="Artsiom">
+        <sql>ALTER TABLE course_student
+            ADD FOREIGN KEY Fk4c (course_id)
+            REFERENCES course(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fk4c</sql>
+        </rollback>
+    </changeSet>
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Student_Review/1" author="Artsiom">
+        <sql>ALTER TABLE student_review
+            ADD FOREIGN KEY Fk8n (review_id)
+            REFERENCES review(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fk8n</sql>
+        </rollback>
+    </changeSet>
+
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Student_Review/2" author="Artsiom">
+        <sql>ALTER TABLE student_review
+            ADD FOREIGN KEY Fkmg (student_id)
+            REFERENCES student(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fkmg</sql>
+        </rollback>
+    </changeSet>
+
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Task_Review/1" author="Artsiom">
+        <sql>ALTER TABLE task_review
+            ADD FOREIGN KEY Fkav (review_id)
+            REFERENCES review(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fkav</sql>
+        </rollback>
+    </changeSet>
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Task_Review/2" author="Artsiom">
+        <sql>ALTER TABLE task_review
+            ADD FOREIGN KEY Fk6k (task_id)
+            REFERENCES task(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fk6k</sql>
+        </rollback>
+    </changeSet>
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Task_Student/1" author="Artsiom">
+        <sql>ALTER TABLE task_student
+            ADD FOREIGN KEY Fk6n (student_id)
+            REFERENCES student(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fk6n</sql>
+        </rollback>
+    </changeSet>
+
+
+    <!--ok/ok   Fk-->
+    <changeSet id="alter_table_Task_Student/2" author="Artsiom">
+        <sql>ALTER TABLE task_student
+            ADD FOREIGN KEY Fksm (task_id)
+            REFERENCES task(id);</sql>
+
+        <rollback>
+            <sql>ALTER TABLE course
+                DROP FOREIGN KEY Fksm</sql>
+        </rollback>
+    </changeSet>
+
+
+</databaseChangeLog>

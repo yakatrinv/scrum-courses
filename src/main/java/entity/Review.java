@@ -1,11 +1,14 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Entity class extends Data class.
+ */
 
 @Data
 @AllArgsConstructor
@@ -13,21 +16,18 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table
-public class Review {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Integer id;
+public class Review extends DataEntity {
 
     @Column
-    private Integer grade;
+    private Integer mark;
 
     @Column
     private String review;
 
+    @ManyToMany(mappedBy = "reviewSet")
+    private Set<Task> tasks = new HashSet<>();
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    public Integer taskId;
+    @ManyToMany(mappedBy = "reviews", cascade = CascadeType.ALL)
+    private Set<Student> studentHashSet = new HashSet<>();
+
 }
