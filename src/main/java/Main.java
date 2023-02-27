@@ -1,49 +1,43 @@
 import dao.*;
+import dataTest.TestData;
 import entity.*;
+import utils.HibernateUtil;
+
+/**
+ * Main class.
+ */
 
 public class Main {
     public static void main(String[] args) {
 
-        DaoUser daoUser = new DaoUserImpl();
-        DaoStudent daoStudent = new DaoStudentImpl();
-        DaoTeacher daoTeacher = new DaoTeacherImpl();
-        DaoCourse daoCourse = new DaoCourseImpl();
-        DaoTask daoTask =new DaoTaskImpl();
-        DaoReview daoReview = new  DaoReviewImpl();
+        fillTestData();
+    }
 
-        User user = new User();
-        user.setLogin("root");
-        user.setPassword("12345");
+    private static void fillTestData() {
+        DAO<Object> dao = new DaoImpl<>();
+        TestData testData = new TestData();
+        User user = testData.getUser("root", "12345");
+        Student student = testData.getStudent("Max", "Petrukevich");
+        Teacher teacher = testData.getTeacher("Gennadi", "Vlasik");
+        Course course = testData.getCourse("JD-2");
+        Task task = testData.getTask("Task_09");
+        Review review = testData.getReview(9, "Well done");
 
-        Student student = new Student();
-        student.setName("Max");
-        student.setSurname("Petrukevich");
-        Student student1 = new Student();
-        student.setName("Oleg");
-        student.setSurname("Avdeenko");
+        teacher.getCourses().add(course);
+        course.setTeacher(teacher);
+        course.getStudents().add(student);
+        task.getStudentSet().add(student);
+        student.getCourseSet().add(course);
+        student.getTasks().add(task);
+        student.getReviews().add(review);
+        task.getReviewSet().add(review);
+        review.getTasks().add(task);
+        review.getStudentHashSet().add(student);
 
-        Teacher teacher = new Teacher();
-        teacher.setName("Gennadi");
-        teacher.setSurname("Vlasik");
+        dao.save(user);
+        dao.save(student);
 
-        Course course = new Course();
-        course.setDescription("JD-2");
-        course.setTeacher("Vlasik G.");
-
-        Task task = new Task();
-        task.setDescription("Task_09");
-
-        Review review = new Review();
-        review.setGrade(9);
-        review.setReview("Well done");
-
-        daoUser.save(user);
-        daoStudent.save(student);
-        daoStudent.save(student1);
-        daoTeacher.save(teacher);
-        daoCourse.save(course);
-        daoTask.save(task);
-        daoReview.save(review);
+        HibernateUtil.ENTITY_MANAGER_FACTORY.close();
 
     }
 }
