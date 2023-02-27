@@ -19,7 +19,7 @@
     <changeSet id="create_table_Course" author="Artsiom">
         <createTable tableName="course">
             <column autoIncrement="true" name="id" type="int">
-                <constraints primaryKey="true" nullable="false" unique="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="description" type="varchar(255)"/>
             <column name="teacher_id" type="int">
@@ -49,38 +49,6 @@
 <!--            <dropTable tableName="course_student"/>-->
 <!--        </rollback>-->
 <!--    </changeSet>-->
-
-
-<!--    &lt;!&ndash;ok/ok&ndash;&gt;-->
-<!--    <changeSet id="create_table_Hibernate_Sequence" author="Artsiom">-->
-<!--        <createTable tableName="hibernate_sequence">-->
-<!--            <column name="next_val" type="bigint"/>-->
-<!--        </createTable>-->
-
-<!--        <insert tableName="hibernate_sequence">-->
-<!--            <column name="next_val">1</column>-->
-<!--        </insert>-->
-<!--        <insert tableName="hibernate_sequence">-->
-<!--            <column name="next_val">1</column>-->
-<!--        </insert>-->
-<!--        <insert tableName="hibernate_sequence">-->
-<!--            <column name="next_val">1</column>-->
-<!--        </insert>-->
-<!--        <insert tableName="hibernate_sequence">-->
-<!--            <column name="next_val">1</column>-->
-<!--        </insert>-->
-<!--        <insert tableName="hibernate_sequence">-->
-<!--            <column name="next_val">1</column>-->
-<!--        </insert>-->
-<!--        <insert tableName="hibernate_sequence">-->
-<!--            <column name="next_val">1</column>-->
-<!--        </insert>-->
-
-<!--        <rollback>-->
-<!--            <dropTable tableName="hibernate_sequence"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
 
 <!--    &lt;!&ndash;ok/ok&ndash;&gt;-->
 <!--    <changeSet id="create_table_Review" author="Artsiom">-->
