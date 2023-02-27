@@ -74,13 +74,13 @@
             </column>
             <column name="description" type="varchar(255)"/>
             <column name="teacher_id" type="int">
-                <constraints foreignKeyName="fk_course_teacher_id" references="teacher(id)" nullable="false"/>
+                <constraints foreignKeyName="course_teacher_id_fk" references="teacher(id)" nullable="false"/>
             </column>
         </createTable>
         <rollback>
-            <dropForeignKeyConstraint baseTableName="fk_course_teacher_id"/>
-            <dropForeignKeyConstraint baseTableName="fk_course_student_course_id"/>
-            <dropForeignKeyConstraint baseTableName="fk_course_student_student_id"/>
+            <dropForeignKeyConstraint baseTableName="course_teacher_id_fk"/>
+            <dropForeignKeyConstraint baseTableName="course_student_course_id_fk"/>
+            <dropForeignKeyConstraint baseTableName="course_student_student_id_fk"/>
             <dropTable tableName="course"/>
         </rollback>
     </changeSet>
@@ -90,11 +90,11 @@
             <!--difficult PrKey!-->
             <column name="course_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_course_student_course_id" references="course(id)"/>
+                             foreignKeyName="course_student_course_id_fk" references="course(id)"/>
             </column>
             <column name="student_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_course_student_student_id" references="student(id)"/>
+                             foreignKeyName="course_student_student_id_fk" references="student(id)"/>
             </column>
         </createTable>
         <rollback>
@@ -106,11 +106,11 @@
         <createTable tableName="student_review">
             <column name="student_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_student_review_student_id" references="student(id)"/>
+                             foreignKeyName="student_review_student_id_fk" references="student(id)"/>
             </column>
             <column name="review_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_student_review_review_id" references="review(id)"/>
+                             foreignKeyName="student_review_review_id_fk" references="review(id)"/>
             </column>
         </createTable>
         <rollback>
@@ -122,11 +122,11 @@
         <createTable tableName="task_review">
             <column name="task_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_task_review_task_id" references="review(id)"/>
+                             foreignKeyName="task_review_task_id_fk" references="review(id)"/>
             </column>
             <column name="review_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_task_review_review_id" references="review(id)"/>
+                             foreignKeyName="task_review_review_id_fk" references="review(id)"/>
             </column>
         </createTable>
         <rollback>
@@ -138,11 +138,11 @@
         <createTable tableName="task_student">
             <column name="task_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_task_student_task_id" references="task(id)"/>
+                             foreignKeyName="task_student_task_id_fk" references="task(id)"/>
             </column>
             <column name="student_id" type="int">
                 <constraints primaryKey="true" nullable="false"
-                             foreignKeyName="fk_task_student_student_id" references="student(id)"/>
+                             foreignKeyName="task_student_student_id_fk" references="student(id)"/>
             </column>
         </createTable>
         <rollback>
