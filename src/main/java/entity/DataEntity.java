@@ -1,7 +1,6 @@
 package entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class DataEntity {
 
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 @Column
     private Integer id;
 

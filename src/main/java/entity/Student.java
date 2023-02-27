@@ -41,12 +41,13 @@ public class Student extends DataEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Student student = (Student) o;
-        return Objects.equals(getId(), student.getId());
+        return name.equals(student.name) && surname.equals(student.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(super.hashCode(), name, surname);
     }
 }

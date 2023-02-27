@@ -5,7 +5,7 @@
 
     <changeSet id="create_table_User" author="Artsiom">
         <createTable tableName="user">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="login" type="varchar(255)"/>
@@ -18,7 +18,7 @@
 
     <changeSet id="create_table_Teacher" author="Artsiom">
         <createTable tableName="teacher">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
@@ -31,7 +31,7 @@
 
     <changeSet id="create_table_Student" author="Artsiom">
         <createTable tableName="student">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)"/>
@@ -44,7 +44,7 @@
 
     <changeSet id="create_table_Task" author="Artsiom">
         <createTable tableName="task">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="description" type="varchar(255)"/>
@@ -56,7 +56,7 @@
 
     <changeSet id="create_table_Review" author="Artsiom">
         <createTable tableName="review">
-            <column name="id" type="int">
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="mark" type="int"/>

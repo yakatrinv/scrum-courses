@@ -1,5 +1,6 @@
 import dao.DAO;
 import dao.DaoImpl;
+import dataTest.TestData;
 import entity.Course;
 import entity.Review;
 import entity.Student;
@@ -8,48 +9,74 @@ import entity.Teacher;
 import entity.User;
 import utils.HibernateUtil;
 
+import java.util.Set;
+
 public class MainK {
+    private static final Set<User> users =TestData.fillUsers();
+    private static final Set<Student> students=TestData.fillStudents();
+    private static final Set<Student> studentsJD2=TestData.fillStudentsJD2();
+    private static final DAO<Object> dao = new DaoImpl<>();
+
     public static void main(String[] args) {
-        fillTestData();
-    }
-
-    private static void fillTestData() {
-        DAO<Object> dao = new DaoImpl<>();
-
-        User user = new User();
-        user.setLogin("root");
-        user.setPassword("12345");
-
-        Student student = new Student();
-        student.setName("Max");
-        student.setSurname("Petrukevich");
-        Student student1 = new Student();
-        student.setName("Oleg");
-        student.setSurname("Avdeenko");
-
-        Teacher teacher = new Teacher();
-        teacher.setName("Gennadi");
-        teacher.setSurname("Vlasik");
-
-        Course course = new Course();
-        course.setDescription("JD-2");
-        course.setTeacher("Vlasik G.");
-
-        Task task = new Task();
-        task.setDescription("Task_09");
-
-        Review review = new Review();
-        review.setGrade(9);
-        review.setReview("Well done");
-
-        dao.save(user);
-        dao.save(student);
-        dao.save(student1);
-        dao.save(teacher);
-        dao.save(course);
-        dao.save(task);
-        dao.save(review);
+        firstCourse();
+        secondCourse();
 
         HibernateUtil.ENTITY_MANAGER_FACTORY.close();
+    }
+
+    private static void firstCourse() {
+        for (User user : users) {
+            dao.save(user);
+            System.out.println(user.getId());
+        }
+
+        Teacher teacher = TestData.getTeacherCore();
+        Course course = TestData.getCourseCore();
+        course.setTeacher(teacher);
+
+        Task task = TestData.getTask();
+        Review reviewCore = TestData.getReviewCore();
+
+
+        task.getReviewSet().add(reviewCore);
+        reviewCore.getTasks().add(task);
+
+        for (Student student : students) {
+            course.getStudents().add(student);
+            task.getStudentSet().add(student);
+            reviewCore.getStudentHashSet().add(student);
+
+            student.getTasks().add(task);
+            student.getReviews().add(reviewCore);
+        }
+
+//        dao.save(task);
+        dao.save(course);
+    }
+
+    private static void secondCourse() {
+//        studentsJD2 = TestData.fillStudentsJD2();
+
+        Teacher teacherJD2 = TestData.getTeacherJD2();
+        Course courseJD2 = TestData.getCourseJD2();
+        courseJD2.setTeacher(teacherJD2);
+
+        Task taskJD2 = TestData.getTaskJD2();
+        Review reviewJD2 = TestData.getReviewJD2();
+
+
+        taskJD2.getReviewSet().add(reviewJD2);
+        reviewJD2.getTasks().add(taskJD2);
+
+        for (Student studentJD2 : studentsJD2) {
+            courseJD2.getStudents().add(studentJD2);
+            taskJD2.getStudentSet().add(studentJD2);
+            reviewJD2.getStudentHashSet().add(studentJD2);
+
+            studentJD2.getTasks().add(taskJD2);
+            studentJD2.getReviews().add(reviewJD2);
+        }
+        dao.save(courseJD2);
+//        dao.save(taskJD2);
     }
 }

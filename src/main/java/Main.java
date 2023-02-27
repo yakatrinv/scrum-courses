@@ -26,6 +26,8 @@ public class Main {
         teacher.getCourses().add(course);
         course.setTeacher(teacher);
         course.getStudents().add(student);
+
+
         task.getStudentSet().add(student);
         student.getCourseSet().add(course);
         student.getTasks().add(task);
