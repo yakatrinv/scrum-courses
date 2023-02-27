@@ -3,6 +3,19 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
+    <changeSet id="create_table_User" author="Artsiom">
+        <createTable tableName="user">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="user"/>
+        </rollback>
+    </changeSet>
+
     <changeSet id="create_table_Teacher" author="Artsiom">
         <createTable tableName="teacher">
             <column name="id" type="int">
@@ -16,6 +29,44 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="create_table_Student" author="Artsiom">
+        <createTable tableName="student">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="surname" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="student"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_table_Task" author="Artsiom">
+        <createTable tableName="task">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="task"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="create_table_Review" author="Artsiom">
+        <createTable tableName="review">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="mark" type="int"/>
+            <column name="review" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="review"/>
+        </rollback>
+    </changeSet>
+
     <changeSet id="create_table_Course" author="Artsiom">
         <createTable tableName="course">
             <column autoIncrement="true" name="id" type="int">
@@ -23,140 +74,79 @@
             </column>
             <column name="description" type="varchar(255)"/>
             <column name="teacher_id" type="int">
-                <constraints foreignKeyName="fk_teacher_id" references="teacher(id)" nullable="false"/>
+                <constraints foreignKeyName="fk_course_teacher_id" references="teacher(id)" nullable="false"/>
             </column>
         </createTable>
         <rollback>
-            <dropForeignKeyConstraint baseTableName="fk_teacher_id"/>
+            <dropForeignKeyConstraint baseTableName="fk_course_teacher_id"/>
+            <dropForeignKeyConstraint baseTableName="fk_course_student_course_id"/>
+            <dropForeignKeyConstraint baseTableName="fk_course_student_student_id"/>
             <dropTable tableName="course"/>
         </rollback>
     </changeSet>
 
+    <changeSet id="create_table_Course_Student" author="Artsiom">
+        <createTable tableName="course_student">
+            <!--difficult PrKey!-->
+            <column name="course_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_course_student_course_id" references="course(id)"/>
+            </column>
+            <column name="student_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_course_student_student_id" references="student(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="course_student"/>
+        </rollback>
+    </changeSet>
 
+    <changeSet id="create_table_Student_Review" author="Artsiom">
+        <createTable tableName="student_review">
+            <column name="student_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_student_review_student_id" references="student(id)"/>
+            </column>
+            <column name="review_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_student_review_review_id" references="review(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="student_review"/>
+        </rollback>
+    </changeSet>
 
-<!--    &lt;!&ndash;ok/ok   Fk?&ndash;&gt;-->
-<!--    <changeSet id="create_table_Course_Student" author="Artsiom">-->
-<!--        <createTable tableName="course_student">-->
-<!--            &lt;!&ndash;difficult PrKey!&ndash;&gt;-->
-<!--            <column name="course_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="student_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="course_student"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
+    <changeSet id="create_table_Task_Review" author="Artsiom">
+        <createTable tableName="task_review">
+            <column name="task_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_task_review_task_id" references="review(id)"/>
+            </column>
+            <column name="review_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_task_review_review_id" references="review(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="task_review"/>
+        </rollback>
+    </changeSet>
 
-<!--    &lt;!&ndash;ok/ok&ndash;&gt;-->
-<!--    <changeSet id="create_table_Review" author="Artsiom">-->
-<!--        <createTable tableName="review">-->
-<!--            <column name="id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="mark" type="int"/>-->
-<!--            <column name="review" type="varchar(255)"/>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="review"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
-
-<!--    &lt;!&ndash;ok/ok&ndash;&gt;-->
-<!--    <changeSet id="create_table_Student" author="Artsiom">-->
-<!--        <createTable tableName="student">-->
-<!--            <column name="id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="name" type="varchar(255)"/>-->
-<!--            <column name="surname" type="varchar(255)"/>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="student"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
-
-<!--    &lt;!&ndash;ok/ok   Fk?&ndash;&gt;-->
-<!--    <changeSet id="create_table_Student_Review" author="Artsiom">-->
-<!--        <createTable tableName="student_review">-->
-<!--            <column name="student_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="review_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="student_review"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
-
-<!--    &lt;!&ndash;ok/ok&ndash;&gt;-->
-<!--    <changeSet id="create_table_Task" author="Artsiom">-->
-<!--        <createTable tableName="task">-->
-<!--            <column name="id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="description" type="varchar(255)"/>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="task"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
-
-<!--    &lt;!&ndash;ok/ok   Fk?&ndash;&gt;-->
-<!--    <changeSet id="create_table_Task_Review" author="Artsiom">-->
-<!--        <createTable tableName="task_review">-->
-<!--            <column name="task_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="review_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="task_review"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
-
-<!--    &lt;!&ndash;ok/ok   Fk?&ndash;&gt;-->
-<!--    <changeSet id="create_table_Task_Student" author="Artsiom">-->
-<!--        <createTable tableName="task_student">-->
-<!--            <column name="task_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="student_id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="task_student"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
-
-
-
-
-<!--    &lt;!&ndash;ok/ok&ndash;&gt;-->
-<!--    <changeSet id="create_table_User" author="Artsiom">-->
-<!--        <createTable tableName="user">-->
-<!--            <column name="id" type="int">-->
-<!--                <constraints primaryKey="true" nullable="false"/>-->
-<!--            </column>-->
-<!--            <column name="login" type="varchar(255)"/>-->
-<!--            <column name="password" type="varchar(255)"/>-->
-<!--        </createTable>-->
-<!--        <rollback>-->
-<!--            <dropTable tableName="user"/>-->
-<!--        </rollback>-->
-<!--    </changeSet>-->
-
+    <changeSet id="create_table_Task_Student" author="Artsiom">
+        <createTable tableName="task_student">
+            <column name="task_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_task_student_task_id" references="task(id)"/>
+            </column>
+            <column name="student_id" type="int">
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_task_student_student_id" references="student(id)"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="task_student"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
