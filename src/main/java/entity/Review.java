@@ -24,10 +24,8 @@ public class Review extends DataEntity {
     @Column
     private String review;
 
-    @ManyToMany(mappedBy = "reviewSet")
-    private Set<Task> tasks = new HashSet<>();
 
-    @ManyToMany(mappedBy = "reviews", cascade = CascadeType.ALL)
-    private Set<Student> studentHashSet = new HashSet<>();
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "teacher_id", nullable = false)
+    private Teacher reviewTeacher;
 }

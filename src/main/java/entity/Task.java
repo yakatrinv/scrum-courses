@@ -21,6 +21,9 @@ public class Task extends DataEntity {
     @Column
     private String description;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course taskCourse;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "task_student",

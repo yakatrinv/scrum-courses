@@ -26,6 +26,8 @@ public class Course extends DataEntity{
     @JoinColumn(name = "teacher_id", nullable = false)
     private Teacher teacher;
 
+    @OneToMany(mappedBy = "taskCourse", cascade = CascadeType.ALL)
+    private Set<Task> TaskHashSet = new HashSet<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "course_student",

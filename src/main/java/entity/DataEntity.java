@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Data super class.
@@ -13,12 +14,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @MappedSuperclass
-public class DataEntity {
+public class DataEntity implements Serializable {
 
 
-@Id
-@GeneratedValue(strategy = GenerationType.AUTO)
-@Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private Integer id;
 
 }

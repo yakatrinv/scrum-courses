@@ -30,13 +30,14 @@ public class TestData {
         course.setDescription(description);
         return course;
     }
-    public Task getTask(String description){
+
+    public Task getTask(String description) {
         Task task = new Task();
         task.setDescription(description);
         return task;
     }
 
-    public Review getReview(Integer mark, String taskReview){
+    public Review getReview(Integer mark, String taskReview) {
         Review review = new Review();
         review.setMark(mark);
         review.setReview(taskReview);

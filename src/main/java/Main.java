@@ -11,10 +11,18 @@ public class Main {
     public static void main(String[] args) {
 
         fillTestData();
+
+        HibernateUtil.ENTITY_MANAGER_FACTORY.close();
     }
 
     private static void fillTestData() {
-        DAO<Object> dao = new DaoImpl<>();
+        DAO<User> daoUser = new DaoUserImpl();
+        DAO<Student> daoStudent = new DaoStudentImpl();
+        DAO<Course> daoCourse = new DaoCourseImpl();
+        DAO<Teacher> daoTeacher = new DaoTeacherImpl();
+        DAO<Task> daoTask = new DaoTaskImpl();
+        DAO<Review> daoReview = new DaoReviewImpl();
+
         TestData testData = new TestData();
         User user = testData.getUser("root", "12345");
         Student student = testData.getStudent("Max", "Petrukevich");
@@ -25,19 +33,19 @@ public class Main {
 
         teacher.getCourses().add(course);
         course.setTeacher(teacher);
+        teacher.getReviewHashSet().add(review);
         course.getStudents().add(student);
-        task.getStudentSet().add(student);
+        course.getTaskHashSet().add(task);
         student.getCourseSet().add(course);
         student.getTasks().add(task);
         student.getReviews().add(review);
+        task.getStudentSet().add(student);
+        task.setTaskCourse(course);
         task.getReviewSet().add(review);
-        review.getTasks().add(task);
-        review.getStudentHashSet().add(student);
+        review.setReviewTeacher(teacher);
 
-        dao.save(user);
-        dao.save(student);
-
-        HibernateUtil.ENTITY_MANAGER_FACTORY.close();
+        daoUser.save(user);
+        daoStudent.save(student);
 
     }
 }
